@@ -50,14 +50,15 @@ app.get("/transacciones", (req, res) => {
 });
 
 app.post("/transacciones", (req, res) => {
-    console.log(req.body);
-    const { producto:idProducto, fecha, cantProd, precioUnitario, tipoTransaccion, tipoIVA, subtotal } = req.body;
-    const transaccion = crearTransaccion(idProducto, cantProd, precioUnitario,fecha, tipoTransaccion, tipoIVA, subtotal);
-    if(!transaccion) res.status(400).json({error: "No hay stock"});
-    res.json(transaccion);
+    const { idProducto, cantProd, precioUnitario, tipoTransaccion, tipoIVA, subtotal, fecha } = req.body;
+    console.log(tipoTransaccion);
+    const transaccion = crearTransaccion(idProducto, cantProd, precioUnitario, tipoTransaccion, tipoIVA, subtotal, fecha);
+    if (transaccion) res.send(transaccion);
+    else res.send("No se pudo realizar la transaccion"); 
 });
 
 // Starting the server
 app.listen(port, () => {
   console.log(`Server on port ${port}`);
 });
+ 
