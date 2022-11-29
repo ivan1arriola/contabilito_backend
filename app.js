@@ -24,6 +24,11 @@ app.all("*", (req, res, next) => {
 // importar modulos
 const { crearProducto, crearTransaccion } = require("./funciones");
 
+app.get("/", (req,res)=>{
+  console.log("hola");
+  res.send("Backend de Contabilito")
+});
+
 // Routes Productos
 app.get("/productos", (req, res) => {
   res.sendFile("productos.json", root);
@@ -50,8 +55,9 @@ app.get("/transacciones", (req, res) => {
 });
 
 app.post("/transacciones", (req, res) => {
-    const { idProducto, cantProd, precioUnitario, tipoTransaccion, tipoIVA, subtotal, fecha } = req.body;
-    console.log(tipoTransaccion);
+    let { idProducto, cantProd, precioUnitario, tipoTransaccion, tipoIVA, subtotal, fecha } = req.body;
+    if(!idProducto) idProducto = req.body.producto;
+    console.log(tipoTransaccion.toUpperCase(), idProducto);
     const transaccion = crearTransaccion(idProducto, cantProd, precioUnitario, tipoTransaccion, tipoIVA, subtotal, fecha);
     if (transaccion) res.send(transaccion);
     else res.send("No se pudo realizar la transaccion"); 

@@ -10,7 +10,7 @@ class Producto {
         if (id) {
             this.id = id;
         } else {
-            this.id = Math.floor(Math.random() * 1000)
+            this.id = Math.floor(Math.random() * 1000);
         }
     }
 

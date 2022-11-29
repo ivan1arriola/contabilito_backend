@@ -16,8 +16,7 @@ const crearProducto = (nombre, descripcion, precioUnitario, stock ) => {
 const crearTransaccion = (idProducto, cantProd, precioUnitario, tipoTransaccion, tipoIVA, subtotal, fecha) => {
     const transaccion = new Transaccion(idProducto, cantProd, precioUnitario, tipoTransaccion, tipoIVA, subtotal, fecha);
     if (transaccion.actualizarStock()) {
-        return transaccion.agregarTransaccion(); 
- 
+        return transaccion.agregarTransaccion();
     }
     return false;
 }

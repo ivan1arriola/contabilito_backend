@@ -28,18 +28,16 @@ class Transaccion {
     traerProducto () {
         const data = fs.readFileSync('./data/productos.json', 'utf-8');
         const productos = JSON.parse(data);
-
-
-        console.log(this.idProducto, "idProducto");
-
-        productos.forEach(producto => console.log(producto.id));
-        const producto = productos.find(producto => producto.id === this.idProducto);
+        const producto = productos.find(producto => producto.id == this.idProducto);
+        if(!producto) return false;
         const Producto = require('./producto');
         return new Producto(producto.nombre, producto.descripcion, producto.precioUnitario, producto.stock, producto.id);
     } 
 
     actualizarStock() {
         const producto = this.traerProducto();
+        console.log("producto", producto)
+        if(!producto) return false;
         let isOk = false;
         this.show();
         if (this.tipoTransaccion === 'Venta' || this.tipoTransaccion === 'venta') {
@@ -49,7 +47,7 @@ class Transaccion {
             isOk = producto.aumentarStock(this.cantProd);
         }
         if (isOk)
-            producto.actualizarProducto() 
+            producto.actualizarProducto();
         return isOk
     }
 
